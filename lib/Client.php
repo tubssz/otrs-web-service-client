@@ -84,7 +84,6 @@ final class Client
         foreach ($data as $key => $value) {
             $soapData[] = new \SoapParam($value, $key);
         }
-        print_r($soapData);
         try {
             $client = new \SoapClient(null, array(
                 'location' => $this->baseUrl . '/nph-genericinterface.pl/Webservice/' . $this->webserviceName,
