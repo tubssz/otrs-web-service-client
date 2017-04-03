@@ -1,0 +1,26 @@
+{
+	"name" : "customweb/otrs-web-service-client",
+	"description" : "OTRS Web Service Client for PHP",
+	"keywords" : [
+		"otrs",
+		"web service",
+		"php"
+	],
+	"homepage" : "http://customweb.com",
+	"license" : "Apache-2.0",
+	"authors" : [{
+			"name" : "customweb GmbH",
+			"homepage" : "https://customweb.com"
+		}
+	],
+	"require" : {
+		"php" : ">=5.4",
+		"ext-json" : "*",
+		"ext-mbstring" : "*"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"OTRSClient\\" : "lib/"
+		}
+	}
+}
