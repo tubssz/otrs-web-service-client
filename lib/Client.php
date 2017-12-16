@@ -1,6 +1,8 @@
 <?php
 namespace Otrs;
 
+use SoapParam;
+
 final class Client
 {
 
