@@ -2,6 +2,10 @@
 namespace Otrs;
 
 use SoapParam;
+use SoapClient;
+use SoapFault;
+use stdClass;
+use Exception;
 
 final class Client
 {
@@ -79,15 +83,15 @@ final class Client
     public function call($endpoint, $data)
     {
         $soapData = array();
-        $soapData[] = new \SoapParam($this->username, $this->loginType);
+        $soapData[] = new SoapParam($this->username, $this->loginType);
         if (! is_null($this->password)) {
-            $soapData[] = new \SoapParam($this->password, 'Password');
+            $soapData[] = new SoapParam($this->password, 'Password');
         }
         foreach ($data as $key => $value) {
-            $soapData[] = new \SoapParam($value, $key);
+            $soapData[] = new SoapParam($value, $key);
         }
         try {
-            $client = new \SoapClient(null, array(
+            $client = new SoapClient(null, array(
                 'location' => $this->baseUrl . '/nph-genericinterface.pl/Webservice/' . $this->webserviceName,
                 'uri' => $this->webserviceNamespace,
                 'trace' => 1,
@@ -96,11 +100,11 @@ final class Client
             ));
             $result = $client->__soapCall($endpoint, $soapData);
             unset($client);
-            if ($result instanceof \stdClass && isset($result->ErrorCode)) {
-                throw new \Exception($result->ErrorMessage);
+            if ($result instanceof stdClass && isset($result->ErrorCode)) {
+                throw new Exception($result->ErrorMessage);
             }
             return $result;
-        } catch (\SoapFault $e) {
+        } catch (SoapFault $e) {
             unset($client);
             throw $e;
         }
